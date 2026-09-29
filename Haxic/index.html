@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#0b1020">
+    <meta name="description" content="HAXICS is your coding assistant for debugging, learning, and building.">
+    <title>HAXICS — Your coding assistant</title>
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <div id="app">
+
+        <!-- SIDEBAR -->
+        <aside id="sidebar">
+
+            <div class="sidebar-header">
+
+                <a class="logo" href="#" aria-label="HAXICS home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="23" cy="26" r="14" fill="#03060d" stroke="#247bff" stroke-width="2"/><path d="M10 27c2-9 11-16 21-14-7 3-11 9-11 16 0 3 1 6 3 9-8 0-14-4-13-11Z" fill="#1556b8"/><path d="m34 7 1.8 4.2L40 13l-4.2 1.8L34 19l-1.8-4.2L28 13l4.2-1.8L34 7Z" fill="#fff"/><path d="m12 7 1.1 2.5L16 10.5l-2.9 1.1L12 14l-1.1-2.4L8 10.5l2.9-1L12 7Z" fill="#ffd966"/><circle cx="39" cy="27" r="1.5" fill="#fff"/><path d="M24 6h9M28.5 1.5v9" stroke="#fff" stroke-width="1" opacity=".9"/></svg></span><span>HAXICS</span></a>
+
+                <button id="newChatButton">
+                    + New Chat
+                </button>
+
+            </div>
+
+
+            <div class="sidebar-title">
+                Chat History
+            </div>
+
+            <div id="chatList">
+                <!-- Chat history will appear here -->
+            </div>
+
+
+            <div class="sidebar-footer">
+
+                <button id="settingsButton">
+                    ⚙ Settings
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN -->
+        <main id="main">
+
+            <header id="topbar">
+
+                <button id="sidebarToggle">
+                    ☰
+                </button>
+
+                <div class="topbar-brand"><div class="title">HAXICS</div><div class="subtitle">Your coding assistant</div></div>
+                <div class="connection-status"><span class="status-dot"></span><span id="connectionLabel">Ready to help</span></div>
+
+            </header>
+
+
+            <!-- CHAT -->
+            <section id="chatArea">
+
+                <div id="welcome">
+
+                    <div class="welcome-mark" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="23" cy="26" r="14" fill="#03060d" stroke="#247bff" stroke-width="2"/><path d="M10 27c2-9 11-16 21-14-7 3-11 9-11 16 0 3 1 6 3 9-8 0-14-4-13-11Z" fill="#1556b8"/><path d="m34 7 1.8 4.2L40 13l-4.2 1.8L34 19l-1.8-4.2L28 13l4.2-1.8L34 7Z" fill="#fff"/><path d="m12 7 1.1 2.5L16 10.5l-2.9 1.1L12 14l-1.1-2.4L8 10.5l2.9-1L12 7Z" fill="#ffd966"/><circle cx="39" cy="27" r="1.5" fill="#fff"/><path d="M24 6h9M28.5 1.5v9" stroke="#fff" stroke-width="1" opacity=".9"/></svg></div>
+                    <p class="eyebrow">YOUR AI CODING PARTNER</p>
+                    <h1>What are you building today?</h1>
+
+                    <p>
+                        Ask a question, paste an error, or start with an idea.
+                    </p>
+                    <div class="suggestion-list">
+                        <button class="suggestion" data-prompt="Explain JavaScript async/await with a simple example">Explain async/await <span>↗</span></button>
+                        <button class="suggestion" data-prompt="Help me debug: my JavaScript button click event is not firing">Debug a click handler <span>↗</span></button>
+                        <button class="suggestion" data-prompt="Create a responsive navigation bar in HTML and CSS">Build a responsive navbar <span>↗</span></button>
+                    </div>
+
+                </div>
+
+
+                <div id="messages">
+                    <!-- Messages will appear here -->
+                </div>
+
+            </section>
+
+
+            <!-- INPUT -->
+            <section id="inputArea">
+
+                <div id="inputBox">
+
+                    <textarea id="questionInput" aria-label="Message HAXICS" placeholder="Message HAXICS…" rows="1"></textarea>
+
+
+                    <button id="askButton">
+                        ↑
+                    </button>
+
+                </div>
+
+
+                <div class="quick-actions" aria-label="Web tools">
+                    <button id="webSearchButton" type="button" title="Search the web for the text in the message box">⌕ Search web</button>
+                    <button id="openWebsiteButton" type="button" title="Open a website address from the message box">↗ Open website</button>
+                    <span>Works with an internet connection; no HAXICS sign-in or AI key needed.</span>
+                </div>
+
+                <div id="status">
+                    AI answers use the provider you configure in Settings. Web search and website opening work without an AI key.
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- SETTINGS -->
+    <div id="settingsOverlay" class="hidden">
+
+        <div id="settingsPanel">
+
+            <div class="settings-header">
+
+                <h2>
+                    Settings
+                </h2>
+
+                <button id="closeSettingsButton">
+                    ×
+                </button>
+
+            </div>
+
+
+            <section class="settings-group">
+                <h3>Appearance</h3>
+                <p class="settings-help">Personalize the chat colors, spacing, and message layout.</p>
+                <label for="themeSelect">Theme</label>
+                <select id="themeSelect" class="settings-select"><option value="dark">Dark</option><option value="light">Light</option></select>
+                <label for="accentSelect">Accent color</label>
+                <select id="accentSelect" class="settings-select"><option value="violet">Violet</option><option value="blue">Blue</option><option value="teal">Teal</option><option value="rose">Rose</option></select>
+                <label for="textSizeSelect">Text size</label>
+                <select id="textSizeSelect" class="settings-select"><option value="comfortable">Comfortable</option><option value="large">Large</option></select>
+                <label for="messageWidthSelect">Message width</label>
+                <select id="messageWidthSelect" class="settings-select"><option value="standard">Standard</option><option value="wide">Wide</option></select>
+                <label for="cornerStyleSelect">Corner style</label>
+                <select id="cornerStyleSelect" class="settings-select"><option value="rounded">Rounded</option><option value="soft">Soft</option></select>
+                <label class="setting-toggle"><input id="compactToggle" type="checkbox"> Compact messages</label>
+            </section>
+
+            <section class="bots-settings">
+                <h3>Bots <span class="premium-badge">PREMIUM</span></h3>
+                <p class="settings-help">Bot connections are not available yet. Your regular AI provider settings continue to work.</p>
+                <label class="setting-toggle bot-mode-toggle"><input id="chatbotEnabledToggle" type="checkbox"> Enable chatbot mode</label>
+                <button id="addBotButton" class="add-bot-button" type="button">＋ Add bot</button>
+                <p id="botFeatureNotice" class="bot-feature-notice" role="status" hidden>Bot connections are not available yet.</p>
+            </section>
+
+            <section class="settings-group">
+                <h3>AI connection</h3>
+                <p class="settings-help">Connect your own API key to enable full AI answers.</p>
+                <label for="providerSelect">AI provider</label>
+                <select id="providerSelect" class="settings-select"><option value="gemini">Gemini</option><option value="openai">OpenAI-compatible API</option></select>
+                <div id="compatibleApiSettings" hidden>
+                    <label for="apiBaseUrlInput">API base URL</label>
+                    <input id="apiBaseUrlInput" class="settings-text-input" type="url" placeholder="https://api.openai.com/v1" autocomplete="url">
+                    <p class="settings-help">Use an OpenAI-compatible API URL. HAXICS adds /chat/completions if needed.</p>
+                    <label for="apiModelInput">Model name</label>
+                    <input id="apiModelInput" class="settings-text-input" type="text" placeholder="gpt-4.1-mini" autocomplete="off">
+                </div>
+                <label for="apiKeyInput" id="apiKeyLabel">Gemini API key</label>
+                <p class="settings-help" id="apiKeyHelp">Your key is saved only in this browser.</p>
+                <div class="api-key-row"><input id="apiKeyInput" type="password" autocomplete="off" placeholder="Paste your API key"><button id="toggleKeyButton" type="button" aria-label="Show API key">Show</button></div>
+                <a class="get-key-link" id="getKeyLink" href="https://aistudio.google.com/apikey" target="_blank" rel="noreferrer">Get a Gemini API key ↗</a>
+            </section>
+
+            <button id="clearDataButton">
+                Clear HAXICS Data
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ONLY ONE JAVASCRIPT ENTRY POINT -->
+    <script type="module" src="./js/app.js"></script>
+
+</body>
+
+</html>
