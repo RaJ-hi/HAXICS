@@ -642,9 +642,7 @@ function renderChatList() {
 
 function toggleSidebar() {
 
-    document.body.classList.toggle(
-        "sidebar-closed"
-    );
+    document.body.classList.toggle("sidebar-closed");
 
 }
 
@@ -1050,5 +1048,10 @@ document.querySelectorAll(".suggestion").forEach(button => button.addEventListen
 // ==========================================
 // START APPLICATION
 // ==========================================
+
+// Keep the chat visible on phones when the app first opens.
+if (window.matchMedia("(max-width: 700px)").matches) {
+    document.body.classList.add("sidebar-closed");
+}
 
 startHaxic();
