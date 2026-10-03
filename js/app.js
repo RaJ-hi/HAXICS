@@ -58,7 +58,7 @@ const newChatButton =
 
 const sidebarToggle =
     document.getElementById("sidebarToggle");
-const brandSidebarToggle = document.getElementById("brandSidebarToggle");
+const sidebarLogo = document.querySelector("#sidebar .logo");
 
 const settingsButton =
     document.getElementById("settingsButton");
@@ -644,11 +644,6 @@ function renderChatList() {
 function toggleSidebar() {
 
     document.body.classList.toggle("sidebar-closed");
-    const isOpen = !document.body.classList.contains("sidebar-closed");
-    if (brandSidebarToggle) {
-        brandSidebarToggle.setAttribute("aria-expanded", String(isOpen));
-        brandSidebarToggle.setAttribute("aria-label", isOpen ? "Close chat menu" : "Open chat menu");
-    }
 
 }
 
@@ -968,7 +963,43 @@ if (sidebarToggle) {
 
 }
 
-if (brandSidebarToggle) brandSidebarToggle.addEventListener("click", toggleSidebar);
+if (sidebarLogo) {
+    let logoTapTimer;
+    let logoHoldTimer;
+    let logoHeld = false;
+    let logoTapCount = 0;
+
+    sidebarLogo.addEventListener("pointerdown", () => {
+        logoHeld = false;
+        logoHoldTimer = window.setTimeout(() => {
+            logoHeld = true;
+            window.clearTimeout(logoTapTimer);
+            logoTapCount = 0;
+            openSettings();
+        }, 600);
+    });
+    ["pointerup", "pointerleave", "pointercancel"].forEach(type =>
+        sidebarLogo.addEventListener(type, () => window.clearTimeout(logoHoldTimer))
+    );
+    sidebarLogo.addEventListener("click", event => {
+        event.preventDefault();
+        if (logoHeld) {
+            logoHeld = false;
+            return;
+        }
+        logoTapCount += 1;
+        if (logoTapCount === 2) {
+            window.clearTimeout(logoTapTimer);
+            logoTapCount = 0;
+            openSettings();
+            return;
+        }
+        logoTapTimer = window.setTimeout(() => {
+            logoTapCount = 0;
+            if (!document.body.classList.contains("sidebar-closed")) toggleSidebar();
+        }, 280);
+    });
+}
 
 
 if (settingsButton) {
@@ -1061,10 +1092,4 @@ document.querySelectorAll(".suggestion").forEach(button => button.addEventListen
 if (window.matchMedia("(max-width: 700px)").matches) {
     document.body.classList.add("sidebar-closed");
 }
-if (brandSidebarToggle) {
-    const isOpen = !document.body.classList.contains("sidebar-closed");
-    brandSidebarToggle.setAttribute("aria-expanded", String(isOpen));
-    brandSidebarToggle.setAttribute("aria-label", isOpen ? "Close chat menu" : "Open chat menu");
-}
-
 startHaxic();
