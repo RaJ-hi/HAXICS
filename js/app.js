@@ -58,6 +58,7 @@ const newChatButton =
 
 const sidebarToggle =
     document.getElementById("sidebarToggle");
+const brandSidebarToggle = document.getElementById("brandSidebarToggle");
 
 const settingsButton =
     document.getElementById("settingsButton");
@@ -643,6 +644,11 @@ function renderChatList() {
 function toggleSidebar() {
 
     document.body.classList.toggle("sidebar-closed");
+    const isOpen = !document.body.classList.contains("sidebar-closed");
+    if (brandSidebarToggle) {
+        brandSidebarToggle.setAttribute("aria-expanded", String(isOpen));
+        brandSidebarToggle.setAttribute("aria-label", isOpen ? "Close chat menu" : "Open chat menu");
+    }
 
 }
 
@@ -962,6 +968,8 @@ if (sidebarToggle) {
 
 }
 
+if (brandSidebarToggle) brandSidebarToggle.addEventListener("click", toggleSidebar);
+
 
 if (settingsButton) {
 
@@ -1052,6 +1060,11 @@ document.querySelectorAll(".suggestion").forEach(button => button.addEventListen
 // Keep the chat visible on phones when the app first opens.
 if (window.matchMedia("(max-width: 700px)").matches) {
     document.body.classList.add("sidebar-closed");
+}
+if (brandSidebarToggle) {
+    const isOpen = !document.body.classList.contains("sidebar-closed");
+    brandSidebarToggle.setAttribute("aria-expanded", String(isOpen));
+    brandSidebarToggle.setAttribute("aria-label", isOpen ? "Close chat menu" : "Open chat menu");
 }
 
 startHaxic();
